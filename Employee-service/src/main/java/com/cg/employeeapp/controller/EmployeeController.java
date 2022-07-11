@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.employeeapp.exception.EmployeeNotFoundException;
+import com.cg.employeeapp.exception.NoProperDataException;
 import com.cg.employeeapp.model.Employee;
 import com.cg.employeeapp.service.EmployeeService;
 import com.cg.employeeapp.service.EmployeeServiceImpl;
@@ -38,7 +39,7 @@ public class EmployeeController {
 	private SequenceGeneratorService service;
 	
 	@PostMapping("/save")
-	public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee){
+	public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) throws NoProperDataException{
 		log.info("start");
 		employee.setEmployeeId(service.getSequenceNumber(Employee.SEQUENCE_NAME));
 		return employeeServiceimpl.addEmployee(employee);
