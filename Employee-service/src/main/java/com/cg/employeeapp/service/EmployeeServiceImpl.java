@@ -3,10 +3,7 @@ package com.cg.employeeapp.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.cg.employeeapp.exception.EmployeeNotFoundException;
 
@@ -24,7 +21,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	private EmployeeRepository employeeRepo;
 
 	@Override
-	public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) throws NoProperDataException {
+	public Employee addEmployee(Employee employee) throws NoProperDataException {
 		
 		log.info("start");
 		if(employee!=null) 
@@ -36,47 +33,69 @@ public class EmployeeServiceImpl implements EmployeeService{
 		{
 			throw new NoProperDataException("Please fill fields");
 		}
-		return ResponseEntity.ok(employee);
+		return employee;
 		
 	}
 
 	@Override
-	public ResponseEntity<List<Employee>> getAllEmployees() throws EmployeeNotFoundException {
+	public List<Employee> getAllEmployees() throws EmployeeNotFoundException {
 		log.info("get all customers from here");
-		return new  ResponseEntity<>(employeeRepo.findAll(),HttpStatus.OK);
+		return employeeRepo.findAll();
 		
 	
 	}
 
-	@Override
-	public ResponseEntity<Employee> getEmployeeById(long id) throws EmployeeNotFoundException{
+	@Override	
+	public Employee getEmployeeById(Long id) throws EmployeeNotFoundException{
 		Employee employees=employeeRepo.findById(id).orElseThrow(()-> new  EmployeeNotFoundException("employee Not Found"+id));
 		
-		return ResponseEntity.ok().body(employees);
+		return employees;
 	}
 
-//	@Override
-//	public void deleteEmpById(Long empidL) {
-//		crudRepo.deleteById(empidL);
-//	}
-//	
+	
 	@Override
-	public ResponseEntity<Employee> updateEmployee(Employee employee, long empid) throws EmployeeNotFoundException {
-		
+	public Employee updateEmployee(Employee employee, long empid) throws EmployeeNotFoundException {
+	    log.info("started");
         Employee employees=employeeRepo.findById(empid).orElseThrow(()-> new EmployeeNotFoundException("employee not "+empid));
-		
+		employees.setEmployeeId(employee.getEmployeeId());
 		employees.setName(employee.getName());
 		employees.setSalary(employee.getSalary());
 		employees.setAddress(employee.getAddress());
 		employees.setEmail(employee.getEmail());
 		
 		
-		final Employee updatedEmployee = employeeRepo.save(employee);
-		return ResponseEntity.ok(updatedEmployee);
+		employeeRepo.save(employees);
 		
-	
-	
+		log.info("Employee Details are updated.."+employees);
+		
+		
+		return employees;
+		
 	}
 	
+	@Override
+	public String deleteEmpById(long id) throws EmployeeNotFoundException {
+		log.info("Start delete");
+		var isRemoved =employeeRepo.findById(id);
+		if(isRemoved.isPresent())
+		{
+			employeeRepo.deleteById(id);
+			log.debug("deleted successfully {}",isRemoved.get());
+		}
+		else
+		{
+			throw new EmployeeNotFoundException("Id Not Available");
+		}
+		log.info(" deleted End");
+		return "Employee deleted successfully";
+	}
+
 	
+//	@Override
+//	public Employee deleteEmployee(long id) throws EmployeeNotFoundException{
+//		Employee employees=employeeRepo.deleteEmployee(id).orElseThrow(()-> new  EmployeeNotFoundException("employee Not Found"+id));
+//		
+//		return employees;
+//	}
+//	
 }

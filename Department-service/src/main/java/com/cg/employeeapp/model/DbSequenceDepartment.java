@@ -7,15 +7,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Document(collection = "emp_sequence")
+
+@Document(collection = "db_sequence_department")
+
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class DbSequence {
+@AllArgsConstructor
+public class DbSequenceDepartment {
 	
 	@Id
     private String  id;
     private int seq;
+	
 	
 
 }
