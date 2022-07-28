@@ -39,7 +39,7 @@ public class FeignControllerEmployee {
 	@PostMapping("/employeedetails")
 	@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Employee> addEmployee(@Valid @RequestBody Employee employee) throws NoProperDataException {
-        employee.setEmployeeId(service.getSequenceNumber(Employee.SEQUENCE_NAME));
+        employee.setId(service.getSequenceNumber(Employee.SEQUENCE_NAME));
         return feignclientutilemployee.addEmployee(employee);
     }
 	

@@ -32,7 +32,7 @@ import com.cg.employeeapp.authentication.response.MessageResponse;
 import com.cg.employeeapp.authentication.security.jwt.JwtUtils;
 import com.cg.employeeapp.authentication.security.services.UserDetailsImpl;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

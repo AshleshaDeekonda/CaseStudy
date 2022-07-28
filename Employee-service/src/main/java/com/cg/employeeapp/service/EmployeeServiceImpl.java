@@ -57,7 +57,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public Employee updateEmployee(Employee employee, long empid) throws EmployeeNotFoundException {
 	    log.info("started");
         Employee employees=employeeRepo.findById(empid).orElseThrow(()-> new EmployeeNotFoundException("employee not "+empid));
-		employees.setEmployeeId(employee.getEmployeeId());
+		employees.setId(employee.getId());
 		employees.setName(employee.getName());
 		employees.setSalary(employee.getSalary());
 		employees.setAddress(employee.getAddress());

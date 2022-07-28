@@ -1,7 +1,7 @@
 package com.cg.employeeapp.model;
 
 
-import java.util.List;
+
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +27,7 @@ public class Employee {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long employeeId;
+	private Long id;
 	
 	public static final String SEQUENCE_NAME="emp_sequence";
 

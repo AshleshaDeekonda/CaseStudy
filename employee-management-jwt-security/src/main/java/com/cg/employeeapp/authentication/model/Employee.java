@@ -26,7 +26,7 @@ public class Employee {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long employeeId;
+	private Long Id;
 	
 	@Transient
 	public static final String SEQUENCE_NAME="emp_sequence";

@@ -30,7 +30,7 @@ public class DepartmentServiceImpl implements DepartmentService{
 		if(department!=null) 
 		{
 			departmentrepository.save(department);
-			System.out.println("orders added");
+			System.out.println("departments added");
 		}
 		else
 		{
@@ -89,8 +89,8 @@ public class DepartmentServiceImpl implements DepartmentService{
 	   
         Department departments=departmentrepository.findById(id).orElseThrow(()-> new DetailsNotFoundException("department not "+department));
         departments.setId(department.getId());
-        departments.setDepartment(department.getDepartment());
-        departments.setDepartmentcode(department.getDepartmentcode());
+        departments.setDepartmentName(department.getDepartmentName());
+        departments.setDepartmentCode(department.getDepartmentCode());
      
 		departmentrepository.save(departments);
 		
